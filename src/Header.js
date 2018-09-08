@@ -23,7 +23,7 @@ const styles = {
         height: 50,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#8f96c7',
+        backgroundColor: '#9f3604',
         elevation: 5,
         position: 'relative',
         marginBottom: 0,
