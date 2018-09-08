@@ -1,0 +1,14 @@
+{
+    "files.exclude": {
+        ".babelrc": true,
+        ".buckconfig": true,
+        ".flowconfig": true,
+        ".watchmanconfig": true,
+        "**/.eslintrc": true,
+        "**/.gitattributes": true,
+        "**/.gitignore": true,
+        "**/.vscode": true,
+        "**/node_modules": true,
+        "package-lock.json": true
+    }
+}
