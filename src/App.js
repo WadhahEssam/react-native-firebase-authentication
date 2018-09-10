@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import firebase from 'firebase/app';
+import 'firebase/auth';
 import { 
   View, 
   ImageBackground, 
@@ -9,10 +11,35 @@ import {
   Text 
 } from 'react-native';
 
+
 const background = require('../img/background.jpg');
 const userIcon = require('../img/user.png');
 
 class App extends Component {
+
+  state = { 
+    email: '',
+    password: '',
+  }
+
+  // will setup the firebase connection 
+  componentWillMount() {
+    firebase.initializeApp({
+      apiKey: 'AIzaSyAOsA_6FKLNJOXQc8omA0Tjym6pgEy8YA4',
+      authDomain: 'fir-auth-51a3f.firebaseapp.com',
+      databaseURL: 'https://fir-auth-51a3f.firebaseio.com',
+      projectId: 'fir-auth-51a3f',
+      storageBucket: 'fir-auth-51a3f.appspot.com',
+      messagingSenderId: '428099740163'
+    });
+  }
+
+  submitLoginForm() {
+    const { email, password } = this.state;
+    
+    console.log(firebase.auth().signInWithEmailAndPassword(email, password));
+  }
+
   render() {
     return (
       <View style={{ flex: 1, }}>
@@ -25,24 +52,30 @@ class App extends Component {
           <View style={styles.signinView}>
             <Image source={userIcon} style={styles.signinIcon} />
             <TextInput 
-              placeholder={'Username'}
+              onChangeText={text => this.setState({ email: text, })}
+              value={this.state.email}
+              placeholder={'Email'}
               placeholderTextColor={'white'}
               textContentType={'emailAddress'}
               underlineColorAndroid={'white'}
               selectionColor={'white'}
+              autoCorrect={false}
               style={styles.signinInput}
             />
             <TextInput 
+              onChangeText={text => this.setState({ password: text, })}
+              value={this.state.password}            
               placeholder={'Password'}
               placeholderTextColor={'white'}
               textContentType={'emailAddress'}
               underlineColorAndroid={'white'}
               selectionColor={'white'}
               secureTextEntry
+              autoCorrent={false}
               style={styles.signinInput}
             />            
             <TouchableOpacity 
-              onPress={() => {}} 
+              onPress={this.submitLoginForm.bind(this)} 
               style={styles.signinButton}
             >
               <Text style={styles.signinButtonFont}>SIGN IN</Text>
