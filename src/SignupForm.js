@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, ImageBackground, TouchableOpacity, TextInput, Image } from 'react-native';
+import { View, Text, ImageBackground, TouchableOpacity, TextInput, Image, ActivityIndicator } from 'react-native';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 
@@ -12,23 +12,25 @@ class SignupForm extends Component {
         email: '',
         password: '',
         confirmPassword: '',
+        isFetching: false,
         error: null,
     }
 
     submitLoginForm() {
-        const { email, password , confirmPassword } = this.state;
-    
+        const { email, password, confirmPassword } = this.state;
+
         if (password !== confirmPassword) {
           this.setState({ error: 'Error: Passwords doesn\'t match' });
           return;
         }
+
+        this.setState({ isFetching: true, });
         firebase.auth().createUserWithEmailAndPassword(email, password)
-        .then(response => {
-          this.setState({ error: null });
-          console.log(response);
+        .then(() => {
+          this.setState({ error: null, isFetching: false, });
         })
         .catch(error => {
-          this.setState({ error: error.toString() });
+          this.setState({ error: error.toString(), isFetching: false, });
         });
     }
 
@@ -87,7 +89,11 @@ class SignupForm extends Component {
                       onPress={this.submitLoginForm.bind(this)} 
                       style={styles.signinButton}
                       >
-                        <Text style={styles.signinButtonFont}>SIGN UP</Text>
+                        { 
+                          (this.state.isFetching) ? 
+                            <ActivityIndicator color={'#CB5A5E'} /> : 
+                            <Text style={styles.signinButtonFont}>SIGN UP</Text>
+                        }
                       </TouchableOpacity>
 
                       <TouchableOpacity 

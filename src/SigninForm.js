@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, ImageBackground, TouchableOpacity, TextInput, Image } from 'react-native';
+import { View, Text, ImageBackground, TouchableOpacity, TextInput, Image, ActivityIndicator } from 'react-native';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 
@@ -12,18 +12,21 @@ class SigninForm extends Component {
         email: '',
         password: '',
         error: null,
+        isFetching: false,
     }
 
     submitLoginForm() {
         const { email, password } = this.state;
+
+        this.setState({ isFetching: true, });
     
         firebase.auth().signInWithEmailAndPassword(email, password)
         .then(response => {
-          this.setState({ error: null });
+          this.setState({ error: null, isFetching: false, });
           console.log(response);
         })
         .catch(error => {
-          this.setState({ error: error.toString() });
+          this.setState({ error: error.toString(), isFetching: false, });
         });
     }
 
@@ -70,7 +73,11 @@ class SigninForm extends Component {
                       onPress={this.submitLoginForm.bind(this)} 
                       style={styles.signinButton}
                       >
-                        <Text style={styles.signinButtonFont}>SIGN IN</Text>
+                        { 
+                          (this.state.isFetching) ? 
+                            <ActivityIndicator color={'#CB5A5E'} /> : 
+                            <Text style={styles.signinButtonFont}>SIGN IN</Text>
+                        }
                       </TouchableOpacity>
 
                       <TouchableOpacity 
