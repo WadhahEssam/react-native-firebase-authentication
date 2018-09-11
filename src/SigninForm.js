@@ -1,5 +1,13 @@
 import React, { Component } from 'react';
-import { View, Text, ImageBackground, TouchableOpacity, TextInput, Image, ActivityIndicator } from 'react-native';
+import { 
+  View,
+  Text, 
+  ImageBackground, 
+  TouchableOpacity, 
+  TextInput, 
+  Image, 
+  ActivityIndicator 
+} from 'react-native';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 

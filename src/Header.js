@@ -17,13 +17,15 @@ const styles = {
     text: {
         fontSize: 22,
         color: 'white',
+        position: 'relative',
+        top: 10,
     },
     headerView: {
         flexDirection: 'row',
-        height: 50,
+        height: 60,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#9f3604',
+        backgroundColor: '#222E35',
         elevation: 5,
         position: 'relative',
         marginBottom: 0,
