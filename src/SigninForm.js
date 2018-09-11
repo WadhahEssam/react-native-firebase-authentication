@@ -43,6 +43,10 @@ class SigninForm extends Component {
             <View>
               <ImageBackground source={background} style={styles.ImageBackground}>
                 <View style={styles.signinView}>
+                    {(this.props.freez) ? 
+                      <ActivityIndicator color={'#B54654'} size={40} style={styles.freezSpinner} /> : 
+                      <View /> 
+                    } 
                     <Image source={userIcon} style={styles.signinIcon} />
                     <TextInput 
                       onChangeText={text => this.setState({ email: text, })}
@@ -182,6 +186,11 @@ const styles = {
     errorText: {
       color: 'white',
       fontWeight: 'bold',
+    }, 
+    freezSpinner: {
+      position: 'absolute',
+      top: 20,
+
     }
 };
 

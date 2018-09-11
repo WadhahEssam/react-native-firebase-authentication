@@ -10,12 +10,12 @@ class App extends Component {
 
   state = {
     view: 'signin',
-    loggedIn: false,
+    loggedIn: null,
     user: null,
   }
 
   // will setup the firebase connection 
-  componentWillMount() {
+  componentDidMount() {
     firebase.initializeApp({
       apiKey: 'AIzaSyAOsA_6FKLNJOXQc8omA0Tjym6pgEy8YA4',
       authDomain: 'fir-auth-51a3f.firebaseapp.com',
@@ -40,19 +40,23 @@ class App extends Component {
   }
 
   selectView() {
-    if (!this.state.loggedIn) {
-      if (this.state.view === 'signin') {
-        return <SigninForm changeView={this.changeView.bind(this)} />;
-      } else if (this.state.view === 'signup') {
-        return <SignupForm changeView={this.changeView.bind(this)} />; 
-      }
-    } else {
-      return <HomeView email={this.state.user.email} />;
+    switch (this.state.loggedIn) {
+      case true: 
+          return <HomeView email={this.state.user.email} />;
+      case false:
+        if (this.state.view === 'signin') {
+          return <SigninForm freez={false} changeView={this.changeView.bind(this)} />;
+        } else if (this.state.view === 'signup') {
+          return <SignupForm changeView={this.changeView.bind(this)} />; 
+        }
+        break;
+      default :
+        return <SigninForm freez changeView={this.changeView.bind(this)} />;
     }
   }
 
   render() {
-    console.log(this.state.user);
+    console.log(this.state.loggedIn);
     return (
       <View style={{ flex: 1, }}>
         {/* Making the status bar transparent */}
