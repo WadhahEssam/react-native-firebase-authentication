@@ -97,8 +97,8 @@ class SigninForm extends Component {
                       </TouchableOpacity>
 
                       <TouchableOpacity 
-                      onPress={() => { this.props.changeView('signup'); }} 
-                      style={styles.signupButton}
+                        onPress={() => { this.props.changeView('signup'); }} 
+                        style={styles.signupButton}
                       >
                         <Text style={styles.signupButtonFont}>SIGN UP</Text>
                       </TouchableOpacity>
